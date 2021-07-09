@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {{#if projects}}
+    {{#each projects}}
+    {{#if this.userId != id}}
+    <h2><a href="/bid/{{this._id}}">{{this.name}}<br>{{this.description}}        {{this.starting}}-{{this.ending}}</a></h2><br><h4>Skills required:  {{this.skills}}</h4><br><br><br>
+    {{/each}}
+    {{else}}
+    <br>
+     <h1>There is no data uploaded</h1>
+     {{/if}}
+</body>
+</html>

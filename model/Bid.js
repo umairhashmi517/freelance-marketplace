@@ -8,10 +8,14 @@ const webSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "user"
   },
-  biddername: String,
+  bidder: String,
   proposal: String,
   amount:Number,
-  noOfDays:Number
+  noOfDays:Number,
+  acceptance:{
+    type:Boolean,
+    default:false
+  }
 })
 let Bid = new mongoose.model('bid',webSchema)
 module.exports = Bid

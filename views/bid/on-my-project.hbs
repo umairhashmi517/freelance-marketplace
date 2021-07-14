@@ -9,7 +9,7 @@
 <body>
     {{#if bids}}
     {{#each bids}}
-    <h1><a href="/user/{{this.userId._id}}">{{this.biddername}}</a></h1>
+    <h1><a href="/user/{{this.userId._id}}">{{this.bidder}}</a> <a href="/bid/accept/{{this._id}}"> accept bid</a></h1>
     <h2>In {{this.noOfDays}} days</h2>
     <h2>{{this.amount}}$</h2>
     <h3>{{this.proposal}}</h3><br>

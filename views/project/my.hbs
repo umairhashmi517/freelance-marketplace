@@ -9,8 +9,7 @@
 <body>
     {{#if projects}}
     {{#each projects}}
-    {{#if this.userId != id}}
-    <h2><a href="/bid/{{this._id}}">{{this.name}}<br>{{this.description}}        {{this.starting}}-{{this.ending}}</a></h2><br><h4>Skills required:  {{this.skills}}</h4><br><br><br>
+    <h2><a href="/bid/bids/{{this._id}}">{{this.name}}<br>{{this.description}}        {{this.starting}}-{{this.ending}}</a></h2><br><h4>Skills required:  {{this.skills}}</h4><br><br><br>
     {{/each}}
     {{else}}
     <br>

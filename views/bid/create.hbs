@@ -12,11 +12,12 @@
     <h3>{{this}}</h3>
     {{/each}}
     {{/if}}
-    <h4><a href="/bids/{{data._id}}">Proposals</a></h4><br>
+    <h4><a href="/bid/bids/{{data._id}}">Proposals</a></h4><br>
     <h1>{{data.name}}</h1><br><br>
     <h3>{{data.description}}</h3><br><br>
     <form action="/bid" method="post">
         <input type="hidden" name="projectId" value="{{data._id}}">
+        input
         <h2><input type="text" name="amount" id="" placeholder="Enter Amount"> Bid-Amount:{{data.starting}}-{{data.ending}}$</h2><br><br>
         <h2><input type="text" name="days" placeholder="Enter no of days"></h2>
         <textarea name="proposal" id="" cols="30" rows="6" placeholder="Enter your bid here"></textarea><br>

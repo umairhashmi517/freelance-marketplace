@@ -3,7 +3,7 @@ const Project = require('../model/Project')
 const Bid = require('../model/Bid')
 
 module.exports.render = async(req,res) => { 
-  let id = req.params.id;
+  let id = req.params.projectId;
   let project = "";
   try{
    project = await Project.find({_id:id});
@@ -11,7 +11,7 @@ module.exports.render = async(req,res) => {
   catch(e){
   console.log(e)
 }
-  res.render("bid",{data:project[0]}) 
+  res.render("bid/create",{data:project[0]}) 
 }
 module.exports.create = async(req,res) => {
   let errors = []
@@ -29,9 +29,9 @@ module.exports.create = async(req,res) => {
     errors.push("Proposal should not be lesser than 15 letters") 
   }
   if(errors.length){
-    res.render("bid",{errors:errors})
+    res.render("bid/create",{errors:errors})
   }
-  bid.biddername = req.user.name
+  bid.bidder = req.user.name
   let bidd
   try{
     bidd = new Bid(bid)
@@ -40,17 +40,28 @@ module.exports.create = async(req,res) => {
   catch(e){
     console.log(e)
   }
-    res.redirect('main')
+    res.redirect('/user/main')
 }
 module.exports.display = async(req,res) => {
   let id = req.params.id
   let bids
   try{
+    //populating User data for redirecting into user detail page 
     bids = await Bid.find({projectId:id}).populate('userId');
   }
   catch(e){
     console.log(e)
   }
   console.log(bids)
-  res.render("bids-on-my-projects",{bids:bids})
+  res.render("bid/on-my-project",{bids:bids})
+}
+module.exports.accept = async(req,res) => {
+  let id = req.params.id
+  try{
+   await Bid.update({_id:id},{acceptance:true});
+   res.send(await Bid.find())
+  }
+  catch(e){
+    console.log(e)
+  }
 }

@@ -5,13 +5,9 @@ const webSchema = new mongoose.Schema({
         ref: "user"
     },
     name: String,
-
     description: String,
-
     starting: Number,
-
     ending: Number,
-
     skills:[ String ]
 })  
 let Product = new mongoose.model('product',webSchema)

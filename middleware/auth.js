@@ -3,13 +3,13 @@ module.exports.ensureAuthenticatedAdmin = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect('/login');
+    res.redirect('/user/login');
   }
 };
 module.exports.login = (req, res, next) => {
   passport.authenticate('local', {
-      successRedirect: '/main',
-      failureRedirect: '/login',
+      successRedirect: '/user/main',
+      failureRedirect: '/user/login',
       failureFlash: true
   })(req, res, next);
 };

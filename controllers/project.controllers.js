@@ -1,9 +1,11 @@
 const validater = require('validator')
 const User = require('../model/User')
 const Project = require('../model/Project')
-module.exports.skills = async (req, res) => {
+module.exports.skills = (req, res) => {
  // res.send("working")
-  res.render("project",{id:req.user.id})
+  console.log(req.user)
+  let user = req.user
+  res.render("project/create",{user:user})
 }
 module.exports.create = async (req, res) => {
     //assigning variables for validation
@@ -28,20 +30,35 @@ module.exports.create = async (req, res) => {
     
     project.userId = req.user.id
     //after validated we will save our data in database
-    const projects = new Project(project) 
-    const dat = await projects.save()
-
-    res.send("<h1>Your project will be posted soon</h1>")
+    try{
+      const projects = new Project(project) 
+      await projects.save()
+    }
+    catch(e){
+      console.log(e)
+    }
+    res.send("<h1>Your project will be posted soon</h1> ")
 } 
 //Display all the projects
-module.exports.display = async(req,res) => { 
-  const projects = await Project.find()
-  res.render("browse",{projects:projects}) 
+module.exports.display = async (req,res) => {
+  console.log(req.user);
+  try{
+    let projects = await Project.find({userId: { $ne: req.user._id } });
+    console.log(projects);
+    
+  res.render("project/display",{projects:projects})
+  }
+  catch(e){
+    console.log(e)
+  }
 }
 module.exports.my = async(req,res) => { 
-  let id = req.user._id
-  const projects = await Project.find({userId:id})
-  console.log(projects);
-
-  res.render("my-projects",{projects:projects}) 
+  try{
+    const projects = await Project.find({userId:req.user._id})
+    
+  res.render("project/my",{projects:projects}) 
+  }
+  catch(e){
+    console.log(e)
+  }
 }
